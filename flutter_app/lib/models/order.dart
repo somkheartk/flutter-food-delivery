@@ -5,6 +5,9 @@ class Order {
   final String status;
   final DateTime createdAt;
   final String deliveryAddress;
+  final String? riderId;
+  final String? riderName;
+  final String? riderPhone;
 
   Order({
     required this.id,
@@ -13,6 +16,9 @@ class Order {
     required this.status,
     required this.createdAt,
     required this.deliveryAddress,
+    this.riderId,
+    this.riderName,
+    this.riderPhone,
   });
 
   factory Order.fromJson(Map<String, dynamic> json) {
@@ -25,6 +31,9 @@ class Order {
       status: json['status'],
       createdAt: DateTime.parse(json['createdAt']),
       deliveryAddress: json['deliveryAddress'],
+      riderId: json['riderId'],
+      riderName: json['riderName'],
+      riderPhone: json['riderPhone'],
     );
   }
 
@@ -36,6 +45,9 @@ class Order {
       'status': status,
       'createdAt': createdAt.toIso8601String(),
       'deliveryAddress': deliveryAddress,
+      'riderId': riderId,
+      'riderName': riderName,
+      'riderPhone': riderPhone,
     };
   }
 }

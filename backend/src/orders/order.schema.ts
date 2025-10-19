@@ -30,6 +30,15 @@ export class Order {
 
   @Prop({ required: true, default: 'pending' })
   status: string; // pending, confirmed, preparing, delivering, completed, cancelled
+
+  @Prop()
+  riderId?: string;
+
+  @Prop()
+  riderName?: string;
+
+  @Prop()
+  riderPhone?: string;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

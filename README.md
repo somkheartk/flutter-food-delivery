@@ -8,8 +8,12 @@ A full-stack food delivery application built with Flutter for the frontend and N
 - Browse food items by categories
 - Add items to cart
 - Place orders with delivery address
+- View order history and track order status
+- Display assigned rider information for deliveries
 - **NestJS Backend API** with RESTful endpoints
 - **MongoDB Database** for data persistence
+- Rider management system
+- Order-to-rider assignment
 - Real-time order management
 - Responsive UI design
 
@@ -131,7 +135,18 @@ flutter run -d chrome
 - `GET /api/orders/:id` - Get a specific order
 - `POST /api/orders` - Create a new order
 - `PUT /api/orders/:id/status` - Update order status
+- `PUT /api/orders/:id/assign-rider` - Assign a rider to an order
 - `DELETE /api/orders/:id` - Delete an order
+
+### Riders
+
+- `GET /api/riders` - Get all riders
+- `GET /api/riders/available` - Get available riders
+- `GET /api/riders/:id` - Get a specific rider
+- `POST /api/riders` - Create a new rider
+- `PUT /api/riders/:id` - Update a rider
+- `PUT /api/riders/:id/status` - Update rider status
+- `DELETE /api/riders/:id` - Delete a rider
 
 ## 🎨 Flutter App Features
 
@@ -139,11 +154,13 @@ flutter run -d chrome
 
 1. **Home Screen** - Browse food items with category filters
 2. **Cart Screen** - View cart items, enter delivery address, and place orders
+3. **Orders Screen** - View order history, track order status, and see assigned rider details
 
 ### Models
 
 - **FoodItem** - Food item with name, description, price, category, etc.
-- **Order** - Order with items, total amount, delivery address, and status
+- **Order** - Order with items, total amount, delivery address, status, and rider information
+- **Rider** - Rider with name, phone, vehicle type, and availability status
 
 ### Services
 
@@ -179,6 +196,23 @@ flutter run -d chrome
   totalAmount: Number,
   deliveryAddress: String,
   status: String, // pending, confirmed, preparing, delivering, completed, cancelled
+  riderId: String,
+  riderName: String,
+  riderPhone: String,
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+### Rider Collection
+
+```javascript
+{
+  name: String,
+  phone: String,
+  vehicleType: String, // motorcycle, bicycle, car
+  status: String, // available, busy, offline
+  currentLocation: String,
   createdAt: Date,
   updatedAt: Date
 }
