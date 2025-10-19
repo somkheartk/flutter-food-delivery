@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/food_item.dart';
 import '../models/order.dart';
+import '../models/rider.dart';
 
 class ApiService {
   // Change this to your backend URL
@@ -70,6 +71,56 @@ class ApiService {
         return data.map((json) => Order.fromJson(json)).toList();
       } else {
         throw Exception('Failed to load orders');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+
+  // Get a specific order
+  Future<Order> getOrder(String orderId) async {
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/orders/$orderId'));
+      
+      if (response.statusCode == 200) {
+        return Order.fromJson(json.decode(response.body));
+      } else {
+        throw Exception('Failed to load order');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+
+  // Get all riders
+  Future<List<Rider>> getRiders() async {
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/riders'));
+      
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        return data.map((json) => Rider.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to load riders');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+
+  // Assign rider to order
+  Future<Order> assignRiderToOrder(String orderId, Map<String, dynamic> riderData) async {
+    try {
+      final response = await http.put(
+        Uri.parse('$baseUrl/orders/$orderId/assign-rider'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(riderData),
+      );
+      
+      if (response.statusCode == 200) {
+        return Order.fromJson(json.decode(response.body));
+      } else {
+        throw Exception('Failed to assign rider');
       }
     } catch (e) {
       throw Exception('Error: $e');

@@ -3,6 +3,7 @@ import '../models/food_item.dart';
 import '../services/api_service.dart';
 import '../widgets/food_card.dart';
 import 'cart_screen.dart';
+import 'orders_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -125,6 +126,17 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Food Delivery'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.receipt_long),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const OrdersScreen(),
+                ),
+              );
+            },
+          ),
           Stack(
             children: [
               IconButton(

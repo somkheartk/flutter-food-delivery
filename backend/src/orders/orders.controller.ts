@@ -29,6 +29,14 @@ export class OrdersController {
     return this.ordersService.updateStatus(id, status);
   }
 
+  @Put(':id/assign-rider')
+  async assignRider(
+    @Param('id') id: string,
+    @Body() riderData: { riderId: string; riderName: string; riderPhone: string },
+  ): Promise<Order> {
+    return this.ordersService.assignRider(id, riderData);
+  }
+
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<Order> {
     return this.ordersService.delete(id);

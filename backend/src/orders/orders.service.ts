@@ -24,6 +24,19 @@ export class OrdersService {
     return this.orderModel.findByIdAndUpdate(id, { status }, { new: true }).exec();
   }
 
+  async assignRider(id: string, riderData: { riderId: string; riderName: string; riderPhone: string }): Promise<Order> {
+    return this.orderModel.findByIdAndUpdate(
+      id,
+      {
+        riderId: riderData.riderId,
+        riderName: riderData.riderName,
+        riderPhone: riderData.riderPhone,
+        status: 'confirmed',
+      },
+      { new: true },
+    ).exec();
+  }
+
   async delete(id: string): Promise<Order> {
     return this.orderModel.findByIdAndDelete(id).exec();
   }
