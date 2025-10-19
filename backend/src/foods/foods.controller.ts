@@ -27,10 +27,7 @@ export class FoodsController {
   }
 
   @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() food: Partial<Food>,
-  ): Promise<Food> {
+  async update(@Param('id') id: string, @Body() food: Partial<Food>): Promise<Food> {
     return this.foodsService.update(id, food);
   }
 

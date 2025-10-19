@@ -27,18 +27,12 @@ export class RidersController {
   }
 
   @Put(':id/status')
-  async updateStatus(
-    @Param('id') id: string,
-    @Body('status') status: string,
-  ): Promise<Rider> {
+  async updateStatus(@Param('id') id: string, @Body('status') status: string): Promise<Rider> {
     return this.ridersService.updateStatus(id, status);
   }
 
   @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() rider: Partial<Rider>,
-  ): Promise<Rider> {
+  async update(@Param('id') id: string, @Body() rider: Partial<Rider>): Promise<Rider> {
     return this.ridersService.update(id, rider);
   }
 

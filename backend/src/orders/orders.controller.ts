@@ -22,10 +22,7 @@ export class OrdersController {
   }
 
   @Put(':id/status')
-  async updateStatus(
-    @Param('id') id: string,
-    @Body('status') status: string,
-  ): Promise<Order> {
+  async updateStatus(@Param('id') id: string, @Body('status') status: string): Promise<Order> {
     return this.ordersService.updateStatus(id, status);
   }
 

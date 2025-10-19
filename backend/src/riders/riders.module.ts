@@ -5,9 +5,7 @@ import { RidersService } from './riders.service';
 import { Rider, RiderSchema } from './rider.schema';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: Rider.name, schema: RiderSchema }]),
-  ],
+  imports: [MongooseModule.forFeature([{ name: Rider.name, schema: RiderSchema }])],
   controllers: [RidersController],
   providers: [RidersService],
   exports: [RidersService],
