@@ -1,21 +1,58 @@
-# Flutter Food Delivery App
+# Flutter Food Delivery App - All-in-One System
 
-A full-stack food delivery application built with Flutter for the frontend and NestJS with MongoDB for the backend.
+A comprehensive full-stack food delivery application built with Flutter, NestJS, and MongoDB. This is an **all-in-one application** supporting multiple user roles (Customer, Merchant, Rider, Admin) in a single unified system.
 
 ## 🚀 Features
 
-- **Flutter Mobile App** with Material Design (Material UI)
-- Browse food items by categories
-- Add items to cart
-- Place orders with delivery address
-- View order history and track order status
-- Display assigned rider information for deliveries
-- **NestJS Backend API** with RESTful endpoints
-- **MongoDB Database** for data persistence
-- Rider management system
-- Order-to-rider assignment
-- Real-time order management
-- Responsive UI design
+### **Core System**
+- **Flutter Mobile App** - All-in-one app for all user roles with Material Design 3
+- **NestJS Backend API** - Complete RESTful API with authentication and authorization
+- **MongoDB Database** - NoSQL database with optimized indexes
+- **Role-Based Access Control (RBAC)** - Customer, Merchant, Rider, Admin roles
+- **JWT Authentication** - Secure authentication with access and refresh tokens
+- **Geospatial Queries** - Find nearby merchants using MongoDB geospatial features
+
+### **Customer Features**
+- Browse nearby merchants and food items
+- Category-based filtering
+- Shopping cart management
+- Apply promo codes
+- Multiple delivery addresses
+- Place orders with various payment methods
+- Track order status in real-time
+- Rate and review merchants and riders
+- View order history
+
+### **Merchant Features**
+- Store registration and management
+- Menu/food item management
+- Open/close store status
+- Receive and manage orders
+- Accept/reject orders
+- Update order preparation status
+- View sales reports (coming soon)
+- Ratings and reviews
+
+### **Rider Features**
+- View available delivery jobs
+- Accept delivery assignments
+- Update delivery status
+- Complete deliveries
+- Track earnings (coming soon)
+- Ratings from customers
+
+### **Admin Features** (Web Dashboard - Coming Soon)
+- Manage users, merchants, riders
+- Manage promo codes and promotions
+- View all orders and analytics
+- Generate reports
+- System monitoring
+
+### **Technical Features**
+- **Security**: Helmet, CORS, rate limiting, input validation
+- **Scalability**: Modular architecture, database indexes
+- **Error Handling**: Comprehensive error handling and validation
+- **Documentation**: Complete API documentation and guides
 
 ## 📁 Project Structure
 
@@ -119,8 +156,31 @@ flutter run -d chrome
 
 ## 🎯 API Endpoints
 
-### Foods
+### Authentication
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - Login
+- `POST /api/auth/logout` - Logout (requires auth)
+- `GET /api/auth/profile` - Get current user profile
+- `POST /api/auth/refresh` - Refresh access token
 
+### Users
+- `POST /api/users` - Create user
+- `GET /api/users` - Get all users (supports role filter)
+- `GET /api/users/:id` - Get user by ID
+- `PATCH /api/users/:id` - Update user
+- `DELETE /api/users/:id` - Delete user
+
+### Merchants
+- `POST /api/merchants` - Create merchant (merchant/admin only)
+- `GET /api/merchants` - Get all merchants
+- `GET /api/merchants/nearby` - Find nearby merchants (geospatial query)
+- `GET /api/merchants/owner/:id` - Get merchant by owner
+- `GET /api/merchants/:id` - Get merchant by ID
+- `PATCH /api/merchants/:id` - Update merchant
+- `PATCH /api/merchants/:id/open-status` - Update open/close status
+- `DELETE /api/merchants/:id` - Delete merchant (admin only)
+
+### Foods
 - `GET /api/foods` - Get all food items
 - `GET /api/foods/:id` - Get a specific food item
 - `GET /api/foods/category/:category` - Get food items by category
@@ -130,7 +190,6 @@ flutter run -d chrome
 - `POST /api/foods/seed` - Seed sample data
 
 ### Orders
-
 - `GET /api/orders` - Get all orders
 - `GET /api/orders/:id` - Get a specific order
 - `POST /api/orders` - Create a new order
@@ -139,7 +198,6 @@ flutter run -d chrome
 - `DELETE /api/orders/:id` - Delete an order
 
 ### Riders
-
 - `GET /api/riders` - Get all riders
 - `GET /api/riders/available` - Get available riders
 - `GET /api/riders/:id` - Get a specific rider
@@ -147,6 +205,21 @@ flutter run -d chrome
 - `PUT /api/riders/:id` - Update a rider
 - `PUT /api/riders/:id/status` - Update rider status
 - `DELETE /api/riders/:id` - Delete a rider
+
+### Promo Codes
+- `POST /api/promo-codes` - Create promo code (admin only)
+- `GET /api/promo-codes` - Get all promo codes (admin only)
+- `GET /api/promo-codes/active` - Get active promo codes
+- `GET /api/promo-codes/validate/:code` - Validate promo code
+- `DELETE /api/promo-codes/:id` - Delete promo code
+
+### Reviews
+- `POST /api/reviews` - Create review (requires auth)
+- `GET /api/reviews/target/:id` - Get reviews for merchant/rider
+- `GET /api/reviews/target/:id/average` - Get average rating
+- `GET /api/reviews/order/:id` - Get reviews for order
+- `GET /api/reviews/user/:id` - Get user's reviews
+- `DELETE /api/reviews/:id` - Delete review
 
 ## 🎨 Flutter App Features
 
