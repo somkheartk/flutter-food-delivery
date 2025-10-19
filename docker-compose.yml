@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: food-delivery-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: food-delivery
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - food-delivery-network
+
+  backend:
+    build: ./backend
+    container_name: food-delivery-backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/food-delivery
+      - PORT=3000
+    depends_on:
+      - mongodb
+    networks:
+      - food-delivery-network
+    command: npm run start:dev
+
+volumes:
+  mongodb_data:
+
+networks:
+  food-delivery-network:
+    driver: bridge
